@@ -5,12 +5,14 @@ import { fetchWeather } from "./services";
 function App() {
     const [search, setSearch] = useState("london");
     const [data, setData] = useState<any>(null);
-    
+
     useEffect(() => {
-        fetchWeather(search).then((data) => {
-            setData(data);
-            console.log("chkadsbc");
-        });
+        fetchWeather(search)
+            .then((data) => {
+                if (data) {
+                    setData(data);
+                }
+            });
     }, [search]);
 
     console.log(data);
