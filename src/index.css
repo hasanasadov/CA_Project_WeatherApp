@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-image{
+    background-image: url('./assets/image.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+   
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.bg-tr-op{
+    background-color: rgba(0,0,0,0.7);
+}
