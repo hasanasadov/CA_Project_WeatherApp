@@ -5,10 +5,11 @@ import { fetchWeather } from "./services";
 function App() {
     const [search, setSearch] = useState("london");
     const [data, setData] = useState<any>(null);
-
+    
     useEffect(() => {
         fetchWeather(search).then((data) => {
             setData(data);
+            console.log("chkadsbc");
         });
     }, [search]);
 
@@ -16,7 +17,7 @@ function App() {
 
     return (
         <div className="flex gap-4 font-semibold flex-col items-center justify-center bg-image h-[100vh] ">
-            <SearchBar search={search} setSearch={setSearch} />
+            <SearchBar setSearch={setSearch} />
             <div className="flex flex-col items-center space-y-4">
                 <h1 className="text-5xl font-bold text-white">{data?.name}</h1>
                 <h2 className="text-3xl text-gray-200">
@@ -29,16 +30,16 @@ function App() {
                     />
 
                     <h3 className="text-2xl text-gray-300">
-                        {data?.main.temp} °C
+                        {data?.main?.temp} °C
                     </h3>
                 </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-6 mt-6 w-full max-w-4xl">
+            <div className="grid grid-cols-3 gap-6 mt-6 w-full max-w-4xl mx-4">
                 <div className="rounded-lg shadow-lg bg-white/10 backdrop-blur-lg p-6 text-center">
                     <p className="text-lg text-gray-200">Humidity</p>
                     <p className="text-2xl font-semibold text-white">
-                        {data?.main.humidity}%
+                        {data?.main?.humidity} %
                     </p>
                 </div>
                 <div className="rounded-lg shadow-lg bg-white/10 backdrop-blur-lg p-6 text-center">
@@ -50,7 +51,7 @@ function App() {
                 <div className="rounded-lg shadow-lg bg-white/10 backdrop-blur-lg p-6 text-center">
                     <p className="text-lg text-gray-200">Feels Like</p>
                     <p className="text-2xl font-semibold text-white">
-                        {data?.main.feels_like} °C
+                        {data?.main?.feels_like} °C
                     </p>
                 </div>
             </div>

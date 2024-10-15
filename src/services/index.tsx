@@ -10,7 +10,8 @@ export const fetchWeather = async (cityName: string = "london") => {
         );
         return data;
     } catch (error) {
-        return error;
+        console.log(error);
+        return null;
     }
 };
 
