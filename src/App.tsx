@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import { fetchWeather } from "./services";
+import { WeatherData } from "./types";
 
 function App() {
     const [search, setSearch] = useState("london");
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<WeatherData>();
 
     useEffect(() => {
         fetchWeather(search)
