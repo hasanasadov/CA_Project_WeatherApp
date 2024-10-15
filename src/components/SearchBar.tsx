@@ -1,5 +1,6 @@
+import { useState } from "react";
+
 const SearchBar = ({
-    search,
     setSearch,
 }: {
     search: string;
@@ -7,8 +8,10 @@ const SearchBar = ({
 }) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(search);
+        setSearch(searchParam);
     };
+
+    const [searchParam, setSearchParam] = useState("london");
     return (
         <div>
             <form className="flex gap-2" onSubmit={handleSubmit}>
@@ -16,8 +19,8 @@ const SearchBar = ({
                     type="text"
                     placeholder="Search for a city"
                     className="rounded-md p-2 bg-opacity-50 bg-white outline-none "
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    value={searchParam}
+                    onChange={(e) => setSearchParam(e.target.value)}
                 />
                 <button className="bg-orange-300 text-white p-2 rounded-md">
                     Search

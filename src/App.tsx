@@ -1,36 +1,57 @@
 import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import { fetchWeather } from "./services";
-function App() {
-    const [search, setSearch] = useState("");
 
-    function fetchWeatherData() {
-        console.log("anan",search);
-        
-        fetchWeather(search);
-    }
+function App() {
+    const [search, setSearch] = useState("london");
+    const [data, setData] = useState<any>(null);
 
     useEffect(() => {
-        fetchWeatherData();
-    }, []);
+        fetchWeather(search).then((data) => {
+            setData(data);
+        });
+    }, [search]);
+
+    console.log(data);
+
     return (
-        <div className="flex gap-4 font-semibold flex-col items-center justify-center h-[100vh] bg-image bg-red-500">
+        <div className="flex gap-4 font-semibold flex-col items-center justify-center bg-image h-[100vh] ">
             <SearchBar search={search} setSearch={setSearch} />
-            <h1 className="text-4xl text-white">London</h1>
-            <h2 className="text-2xl text-white">Clouds</h2>
-            <h3 className="text-xl text-white">12 °C</h3>
-            <div className="flex justify-evenly w-full ">
-                <div className="rounded-xl h-24 w-72 flex-col bg-tr-op  flex justify-center items-center text-white">
-                    <p>Hummidity</p>
-                    <p className="text-2xl">84%</p>
+            <div className="flex flex-col items-center space-y-4">
+                <h1 className="text-5xl font-bold text-white">{data?.name}</h1>
+                <h2 className="text-3xl text-gray-200">
+                    {data?.weather[0]?.main}
+                </h2>
+                <div className="flex items-center justify-center">
+                    <img
+                        src={`http://openweathermap.org/img/wn/${data?.weather[0]?.icon}@2x.png`}
+                        alt="weather icon"
+                    />
+
+                    <h3 className="text-2xl text-gray-300">
+                        {data?.main.temp} °C
+                    </h3>
                 </div>
-                <div className="rounded-xl h-24 w-72 flex-col bg-tr-op  flex justify-center items-center text-white">
-                    <p>Wind</p>
-                    <p className="text-2xl">4 km/h</p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-6 mt-6 w-full max-w-4xl">
+                <div className="rounded-lg shadow-lg bg-white/10 backdrop-blur-lg p-6 text-center">
+                    <p className="text-lg text-gray-200">Humidity</p>
+                    <p className="text-2xl font-semibold text-white">
+                        {data?.main.humidity}%
+                    </p>
                 </div>
-                <div className="rounded-xl h-24 w-72 flex-col bg-tr-op  flex justify-center items-center text-white">
-                    <p>Feels Like</p>
-                    <p className="text-2xl">15 C</p>
+                <div className="rounded-lg shadow-lg bg-white/10 backdrop-blur-lg p-6 text-center">
+                    <p className="text-lg text-gray-200">Wind</p>
+                    <p className="text-2xl font-semibold text-white">
+                        {data?.wind?.speed} km/h
+                    </p>
+                </div>
+                <div className="rounded-lg shadow-lg bg-white/10 backdrop-blur-lg p-6 text-center">
+                    <p className="text-lg text-gray-200">Feels Like</p>
+                    <p className="text-2xl font-semibold text-white">
+                        {data?.main.feels_like} °C
+                    </p>
                 </div>
             </div>
         </div>
